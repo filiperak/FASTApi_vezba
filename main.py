@@ -18,6 +18,11 @@ my_post = [
         {"title":"title2","content":"contentof post22","id":2}
     ]
 
+def find_post(id):
+    for p in my_post:
+        if p['id'] == id:
+            return p
+
 @app.get("/")
 def root():
     return{"message":"Filip 1312 "}          #sam ga prevede u JSON  ctrlshift arrow
@@ -33,3 +38,7 @@ def create_post(post: Post):
     my_post.append(post_dict)
     return{"data":post_dict}
 
+@app.get("/posts/{id}")
+def get_post(id:int):
+    post = find_post(id)
+    return post
