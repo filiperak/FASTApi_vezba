@@ -12,6 +12,10 @@ class Post(BaseModel):
     publish: bool=True
     rateing: Optional[int]
 
+my_post = [
+        {"title":"title of post","content":"contentof post1","id":1},
+        {"title":"title2","content":"contentof post22","id":2}
+    ]
 
 @app.get("/")
 def root():
@@ -19,12 +23,11 @@ def root():
 
 @app.get("/posts")
 def get_posts():
-    return {"data":"this is your post"}
+    return {"data":my_post} #sam ga prevede u json
 
-@app.post("/createpost")
+@app.post("/posts")
 def create_post(post: Post):
     print(post.publish)
     print(post.model_dump())
     return{"post":post}
-
 
