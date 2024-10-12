@@ -3,5 +3,6 @@ from fastapi import FastAPI
 app = FastAPI()
 
 @app.get("/")
-async def root():
-    return{"message":"Filip 1312"}
+def root():
+    return{"message":"Filip 1312 "}          #sam ga prevede u JSON
+
