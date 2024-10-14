@@ -22,6 +22,11 @@ def find_post(id):
     for p in my_post:
         if p['id'] == id:
             return p
+        
+def find_index_post(id):
+    for i , p in enumerate(my_post):
+        if p ["id"] == id:
+            return i
 
 @app.get("/")
 def root():
@@ -48,4 +53,9 @@ def get_post(id:int, response:Response):
         # return {"message":"post not found"}
     return post
 
-@app.delete("post")
+@app.delete("post/{id}")
+def delete_post():
+    index = find_index_post(id)
+    my_post.pop(index)
+
+    return {"message":"post deleted"}
