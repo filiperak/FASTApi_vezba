@@ -54,7 +54,7 @@ def get_post(id:int, response:Response):
     return post
 
 @app.delete("post/{id}")
-def delete_post():
+def delete_post(id:int):
     index = find_index_post(id)
     my_post.pop(index)
 
