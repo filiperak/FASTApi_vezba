@@ -67,16 +67,26 @@ def get_post(id:int,response:Response):
         #return {"messsage":"post not found"}
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="post not found")
 
-    return {"post_detail":post}
+    return {"post_details":post}
 
 
 
 @app.delete("/posts/{id}")
 def delete_post(id:int):
     index = find_post_index(id)
-    if not index:
+    if index == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="post not found")
     my_posts.pop(index)
-    print(index)
-    return {"message":f"post {id} deleted"}
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
+@app.put("/posts/{id}")
+def update_post(updated_post:Post,id:int):
+    index = find_post_index(id)
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="post not found")
+    
+    post_dict = updated_post.model_dump()
+    post_dict["id"] = id
+    my_posts[index] = post_dict
+    print(updated_post)
+    return{"message":f"post {id} updated"}
